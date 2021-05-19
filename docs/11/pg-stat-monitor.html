@@ -1,0 +1,573 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="lang:clipboard.copy" content="Copy to clipboard">
+  <meta name="lang:clipboard.copied" content="Copied to clipboard">
+  <meta name="lang:search.language" content="en">
+  <meta name="lang:search.pipeline.stopwords" content="True">
+  <meta name="lang:search.pipeline.trimmer" content="True">
+  <meta name="lang:search.result.none" content="No matching documents">
+  <meta name="lang:search.result.one" content="1 matching document">
+  <meta name="lang:search.result.other" content="# matching documents">
+  <meta name="lang:search.tokenizer" content="[\s\-]+">
+
+  
+    <link href="https://fonts.gstatic.com/" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700|Roboto:300,400,400i,700&display=fallback" rel="stylesheet">
+
+    <style>
+      body,
+      input {
+        font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif
+      }
+
+      code,
+      kbd,
+      pre {
+        font-family: "Roboto Mono", "Courier New", Courier, monospace
+      }
+    </style>
+  
+
+  <link rel="stylesheet" href="_static/stylesheets/application.css"/>
+  <link rel="stylesheet" href="_static/stylesheets/application-palette.css"/>
+  <link rel="stylesheet" href="_static/stylesheets/application-fixes.css"/>
+  
+  <link rel="stylesheet" href="_static/fonts/material-icons.css"/>
+  
+  <meta name="theme-color" content="#3f51b5">
+  <script src="_static/javascripts/modernizr.js"></script>
+  
+  
+  
+    <title>pg_stat_monitor &#8212; Percona Distribution for PostgreSQL 11 Documentation</title>
+    <link rel="stylesheet" href="_static/material.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <link rel="shortcut icon" href="_static/percona_favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Uninstalling Percona Distribution for PostgreSQL" href="uninstalling.html" />
+    <link rel="prev" title="Minor Upgrade of Percona Distribution for PostgreSQL" href="minor-upgrade.html" />
+  
+   
+
+  </head>
+  <body dir=ltr
+        data-md-color-primary=orange data-md-color-accent=grey>
+  
+  <svg class="md-svg">
+    <defs data-children-count="0">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+      
+    </defs>
+  </svg>
+  
+  <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer">
+  <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search">
+  <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+  <a href="#pg-stat-monitor" tabindex="1" class="md-skip"> Skip to content </a>
+  <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex navheader">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="index.html" title="Percona Distribution for PostgreSQL 11 Documentation"
+           class="md-header-nav__button md-logo">
+          
+              <img src="_static/percona-logo.svg" height="26"
+                   alt="Percona Distribution for PostgreSQL 11 logo">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          <span class="md-header-nav__topic">Percona Distribution for PostgreSQL 11</span>
+          <span class="md-header-nav__topic"> pg_stat_monitor </span>
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+        
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" action="search.html" method="GET" name="search">
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
+             autocapitalize="off" autocomplete="off" spellcheck="false"
+             data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            <a href="https://github.com/percona/postgresql-docs" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    percona/postgresql-docs
+  </div>
+</a>
+          </div>
+        </div>
+      
+      
+  
+  <div class="md-flex__cell md-flex__cell--shrink dropdown">
+    <button class="dropdownbutton">Versions</button>
+    <div class="dropdown-content md-hero">
+          <a title="11" href="https://postgresql-docs-11.netlify.app">11</a>
+      
+          <a title="12" href="https://postgresql-docs-12.netlify.app">12</a>
+      
+          <a title="13" href="https://postgresql-docs-11.netlify.app">13</a>
+      
+          <a title="Latest" href="https://www.percona.com/doc/postgresql/LATEST/index.html">Latest</a>
+      
+    </div>
+  </div>
+  
+
+    </div>
+  </nav>
+</header>
+
+  
+  <div class="md-container">
+    
+    
+    
+  <nav class="md-tabs" data-md-component="tabs">
+    <div class="md-tabs__inner md-grid">
+      <ul class="md-tabs__list">
+          <li class="md-tabs__item"><a href="index.html" class="md-tabs__link">Percona Distribution for PostgreSQL 11</a></li>
+      </ul>
+    </div>
+  </nav>
+    <main class="md-main">
+      <div class="md-main__inner md-grid" data-md-component="container">
+        
+          <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="index.html" title="Percona Distribution for PostgreSQL 11 Documentation" class="md-nav__button md-logo">
+      
+        <img src="_static/percona-logo.svg" alt=" logo" width="48" height="48">
+      
+    </a>
+    <a href="index.html"
+       title="Percona Distribution for PostgreSQL 11 Documentation">Percona Distribution for PostgreSQL 11</a>
+  </label>
+    <div class="md-nav__source">
+      <a href="https://github.com/percona/postgresql-docs" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    percona/postgresql-docs
+  </div>
+</a>
+    </div>
+  
+  
+
+  
+  <ul class="md-nav__list">
+    <li class="md-nav__item">
+    
+    
+      <a href="installing.html" class="md-nav__link">Installing Percona Distribution for PostgreSQL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="minor-upgrade.html" class="md-nav__link">Minor Upgrade of Percona Distribution for PostgreSQL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    <label class="md-nav__link md-nav__link--active" for="__toc"> pg_stat_monitor </label>
+    
+      <a href="#" class="md-nav__link md-nav__link--active">pg_stat_monitor</a>
+      
+        
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">Contents</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#pg-stat-monitor--page-root" class="md-nav__link">pg_stat_monitor</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#overview" class="md-nav__link">Overview</a>
+        </li>
+        <li class="md-nav__item"><a href="#setup" class="md-nav__link">Setup</a>
+        </li>
+        <li class="md-nav__item"><a href="#usage" class="md-nav__link">Usage</a>
+        </li>
+        <li class="md-nav__item"><a href="#changing-the-configuration" class="md-nav__link">Changing the configuration</a>
+        </li></ul>
+            </nav>
+        </li>
+    
+<li class="md-nav__item"><a class="md-nav__extra_link" href="_sources/pg-stat-monitor.rst.txt">Show Source</a> </li>
+
+  </ul>
+</nav>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="uninstalling.html" class="md-nav__link">Uninstalling Percona Distribution for PostgreSQL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="release-notes.html" class="md-nav__link">Release Notes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="licensing.html" class="md-nav__link">Licensing</a>
+      
+    
+    </li>
+  </ul>
+  
+
+</nav>
+              </div>
+            </div>
+          </div>
+          <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">Contents</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#pg-stat-monitor--page-root" class="md-nav__link">pg_stat_monitor</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#overview" class="md-nav__link">Overview</a>
+        </li>
+        <li class="md-nav__item"><a href="#setup" class="md-nav__link">Setup</a>
+        </li>
+        <li class="md-nav__item"><a href="#usage" class="md-nav__link">Usage</a>
+        </li>
+        <li class="md-nav__item"><a href="#changing-the-configuration" class="md-nav__link">Changing the configuration</a>
+        </li></ul>
+            </nav>
+        </li>
+    
+<li class="md-nav__item"><a class="md-nav__extra_link" href="_sources/pg-stat-monitor.rst.txt">Show Source</a> </li>
+
+<li id="searchbox" class="md-nav__item"></li>
+
+  </ul>
+</nav>
+              </div>
+            </div>
+          </div>
+        
+        <div class="md-content">
+          <article class="md-content__inner md-typeset" role="main">
+            
+  
+<span id="id1"></span><h1 id="pg-stat-monitor--page-root">pg_stat_monitor<a class="headerlink" href="#pg-stat-monitor--page-root" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a technical preview feature and it is subject to further changes.</p>
+</div>
+
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">pg_stat_monitor</span></code> is a PostgreSQL Query Performance Monitoring
+tool. It collects statistics data and writes it in a storage unit called <em>bucket</em>. The data is added and stored in a bucket for the defined period – the bucket lifetime.</p>
+<p>You can specify the following:</p>
+<ul class="simple">
+<li><p>The number of buckets. Together they form a bucket chain.</p></li>
+<li><p>Bucket size. This is the amount of shared memory allocated for buckets. Memory is divided equally among buckets.</p></li>
+<li><p>Bucket lifetime.</p></li>
+</ul>
+<p>When a bucket lifetime expires, <code class="docutils literal notranslate"><span class="pre">pg_stat_monitor</span></code> resets all statistics and writes the data in the next bucket in the chain. When the last bucket’s lifetime expires, <code class="docutils literal notranslate"><span class="pre">pg_stat_monitor</span></code> returns to the first bucket.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The contents of the bucket will be overwritten. In order not to lose the data, make sure to read the bucket before <code class="docutils literal notranslate"><span class="pre">pg_stat_monitor</span></code> starts writing new data to it.</p>
+</div>
+
+
+<span id="pg-stat-setup"></span><h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>After the <a class="reference internal" href="installing.html#pdp-installing"><span class="std std-ref">installation</span></a>, <code class="docutils literal notranslate"><span class="pre">pg_stat_monitor</span></code> requires additional setup in order to use it with PostgreSQL. The setup steps are the following:</p>
+<ol class="arabic">
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">pg_stat_monitor</span></code> in the <code class="docutils literal notranslate"><span class="pre">shared_preload_libraries</span></code> configuration parameter.</p>
+<p>The recommended way to modify PostgreSQL configuration file is using the <a class="reference external" href="https://www.postgresql.org/docs/11/sql-altersystem.html">ALTER SYSTEM</a> command. <a class="reference internal" href="installing.html#server-connect"><span class="std std-ref">Connect to psql</span></a> and use the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ALTER SYSTEM SET <span class="nv">shared_preload_libraries</span> <span class="o">=</span> <span class="s1">'pg_stat_monitor'</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The parameter value is written to the <code class="file docutils literal notranslate"><span class="pre">postgresql.auto.conf</span></code> file which is read in addition with <code class="file docutils literal notranslate"><span class="pre">postgresql.conf</span></code> file.</p>
+</li>
+<li><p>Start or restart the PostgreSQL instance to enable <code class="docutils literal notranslate"><span class="pre">pg_stat_monitor</span></code>. Use the following command for restart:</p>
+<ul>
+<li><p>On Debian and Ubuntu:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sudo systemctl restart postgresql.service
+</pre></div>
+</div>
+</li>
+<li><p>On Red Hat Enterprise Linux and CentOS:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sudo systemctl restart postgresql-11
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>Create the extension. Connect to <code class="docutils literal notranslate"><span class="pre">psql</span></code> and use the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ CREATE EXTENSION pg_stat_monitor<span class="p">;</span>
+</pre></div>
+</div>
+</li>
+</ol>
+
+
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">pg_stat_monitor</span></code> provides two views:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pg_stat_monitor</span></code> is the view where statistics data is presented.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pg_stat_monitor_settings</span></code> shows available configuration options which you can change. To learn more, see <a class="reference internal" href="#change-config"><span class="std std-ref">Changing the configuration</span></a>.</p></li>
+</ul>
+<p>Use the following query to view what metrics <code class="docutils literal notranslate"><span class="pre">pg_stat_monitor</span></code> can collect:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="se">\d</span> pg_stat_monitor<span class="p">;</span>
+</pre></div>
+</div>
+<p><strong>Output</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>                     View "public.pg_stat_monitor"
+       Column        |           Type           | Collation | Nullable | Default
+---------------------+--------------------------+-----------+----------+---------
+ bucket              | integer                  |           |          |
+ bucket_start_time   | timestamp with time zone |           |          |
+ userid              | oid                      |           |          |
+ dbid                | oid                      |           |          |
+ client_ip           | inet                     |           |          |
+ queryid             | text                     |           |          |
+ query               | text                     |           |          |
+ application_name    | text                     |           |          |
+ relations           | text[]                   |           |          |
+ cmd_type            | text[]                   |           |          |
+ elevel              | integer                  |           |          |
+ sqlcode             | integer                  |           |          |
+ message             | text                     |           |          |
+ plans               | bigint                   |           |          |
+ plan_total_time     | double precision         |           |          |
+ plan_min_timei      | double precision         |           |          |
+ plan_max_time       | double precision         |           |          |
+ plan_mean_time      | double precision         |           |          |
+ plan_stddev_time    | double precision         |           |          |
+ calls               | bigint                   |           |          |
+ total_time          | double precision         |           |          |
+ min_time            | double precision         |           |          |
+ max_time            | double precision         |           |          |
+ mean_time           | double precision         |           |          |
+ stddev_time         | double precision         |           |          |
+ rows                | bigint                   |           |          |
+ shared_blks_hit     | bigint                   |           |          |
+ shared_blks_read    | bigint                   |           |          |
+ shared_blks_dirtied | bigint                   |           |          |
+ shared_blks_written | bigint                   |           |          |
+ local_blks_hit      | bigint                   |           |          |
+ local_blks_read     | bigint                   |           |          |
+ local_blks_dirtied  | bigint                   |           |          |
+ local_blks_written  | bigint                   |           |          |
+ temp_blks_read      | bigint                   |           |          |
+ temp_blks_written   | bigint                   |           |          |
+ blk_read_time       | double precision         |           |          |
+ blk_write_time      | double precision         |           |          |
+ resp_calls          | text[]                   |           |          |
+ cpu_user_time       | double precision         |           |          |
+ cpu_sys_time        | double precision         |           |          |
+</pre></div>
+</div>
+<p>For example, to view the IP address of the client application that made the query, run the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ SELECT userid::regrole, datname, substr<span class="o">(</span>query,0, <span class="m">50</span><span class="o">)</span> AS query, calls, client_ip
+  FROM pg_stat_monitor, pg_database
+  WHERE <span class="nv">dbid</span> <span class="o">=</span> oid<span class="p">;</span>
+
+  userid  <span class="p">|</span> datname  <span class="p">|</span>                       query                       <span class="p">|</span> calls <span class="p">|</span> client_ip
+----------+----------+---------------------------------------------------+-------+-----------
+ postgres <span class="p">|</span> postgres <span class="p">|</span> <span class="k">select</span> bucket, bucket_start_time, query,calls fro <span class="p">|</span>     <span class="m">1</span> <span class="p">|</span> <span class="m">127</span>.0.0.1
+ postgres <span class="p">|</span> postgres <span class="p">|</span> SELECT c.relchecks, c.relkind, c.relhasindex, c.r <span class="p">|</span>     <span class="m">1</span> <span class="p">|</span> <span class="m">127</span>.0.0.1
+ postgres <span class="p">|</span> postgres <span class="p">|</span> SELECT  userid,  total_time, min_time, max_time,  <span class="p">|</span>     <span class="m">1</span> <span class="p">|</span> <span class="m">127</span>.0.0.1
+</pre></div>
+</div>
+<p>Find more usage examples  in <a class="reference external" href="https://github.com/percona/pg_stat_monitor/blob/REL0_8_1/docs/USER_GUIDE.md">pg_stat_monitor User Guide</a>.</p>
+
+
+<span id="change-config"></span><h2 id="changing-the-configuration">Changing the configuration<a class="headerlink" href="#changing-the-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Run the following query to list available configuration parameters.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ SELECT name,description FROM pg_stat_monitor_settings<span class="p">;</span>
+</pre></div>
+</div>
+<p><strong>Output</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>name                      |                            description
+-----------------------------------------------+-------------------------------------------------------------------
+ pg_stat_monitor.pgsm_max                      | Sets the maximum number of statements tracked by pg_stat_monitor.
+ pg_stat_monitor.pgsm_query_max_len            | Sets the maximum length of query.
+ pg_stat_monitor.pgsm_enable                   | Enable/Disable statistics collector.
+ pg_stat_monitor.pgsm_track_utility            | Selects whether utility commands are tracked.
+ pg_stat_monitor.pgsm_normalized_query         | Selects whether save query in normalized format.
+ pg_stat_monitor.pgsm_max_buckets              | Sets the maximum number of buckets.
+ pg_stat_monitor.pgsm_bucket_time              | Sets the time in seconds per bucket.
+ pg_stat_monitor.pgsm_object_cache             | Sets the maximum number of object cache
+ pg_stat_monitor.pgsm_respose_time_lower_bound | Sets the time in millisecond.
+ pg_stat_monitor.pgsm_respose_time_step        | Sets the response time steps in millisecond.
+ pg_stat_monitor.pgsm_query_shared_buffer      | Sets the query shared_buffer size.
+</pre></div>
+</div>
+<p>You can change a parameter by setting a new value in the configuration file. Some parameters require server restart to apply a new value. For others, configuration reload is enough. Refer to the <a class="reference external" href="https://github.com/percona/pg_stat_monitor/blob/REL0_8_1/docs/USER_GUIDE.md#configuration">configuration section</a> of the <code class="docutils literal notranslate"><span class="pre">pg_stat_monitor</span></code> documentation for the parameters’ description, how you can change their values and if the server restart is required to apply them.</p>
+<p>As an example, let’s set the bucket lifetime from default 60 seconds to 100 seconds. Use the <strong class="command">ALTER SYSTEM</strong> command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ALTER SYSTEM <span class="nb">set</span> pg_stat_monitor.pgsm_bucket_time <span class="o">=</span> <span class="m">100</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Restart the server to apply the change:</p>
+<ul>
+<li><p>On Debian and Ubuntu</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sudo systemctl restart restart postgresql.service
+</pre></div>
+</div>
+</li>
+<li><p>On Red Hat Enterprise Linux and CentOS:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sudo systemctl restart postgresql-11
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Verify the updated parameter:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ SELECT name, value
+  FROM pg_stat_monitor_settings
+  WHERE <span class="nv">name</span> <span class="o">=</span> <span class="s1">'pg_stat_monitor.pgsm_bucket_time'</span><span class="p">;</span>
+
+                 name               <span class="p">|</span> value
+  ----------------------------------+-------
+   pg_stat_monitor.pgsm_bucket_time <span class="p">|</span>   <span class="m">100</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">pg_stat_monitor</span></code> Documentation</dt><dd><p><a class="reference external" href="https://github.com/percona/pg_stat_monitor/blob/REL0_8_1/README.md">https://github.com/percona/pg_stat_monitor/blob/REL0_8_1/README.md</a></p>
+</dd>
+<dt>Percona Blog: pg_stat_monitor: A New Way Of Looking At PostgreSQL Metrics</dt><dd><p><a class="reference external" href="https://www.percona.com/blog/2021/01/19/pg_stat_monitor-a-new-way-of-looking-at-postgresql-metrics/">https://www.percona.com/blog/2021/01/19/pg_stat_monitor-a-new-way-of-looking-at-postgresql-metrics/</a></p>
+</dd>
+</dl>
+</div>
+
+
+
+
+          </article>
+        </div>
+      </div>
+    </main>
+  </div>
+  <footer class="md-footer">
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+          
+            <a href="minor-upgrade.html" title="Minor Upgrade of Percona Distribution for PostgreSQL"
+               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
+               rel="prev">
+              <div class="md-flex__cell md-flex__cell--shrink">
+                <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+              </div>
+              <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+                <span class="md-flex__ellipsis">
+                  <span
+                      class="md-footer-nav__direction"> Previous </span> Minor Upgrade of Percona Distribution for PostgreSQL </span>
+              </div>
+            </a>
+          
+          
+            <a href="uninstalling.html" title="Uninstalling Percona Distribution for PostgreSQL"
+               class="md-flex md-footer-nav__link md-footer-nav__link--next"
+               rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
+                class="md-flex__ellipsis"> <span
+                class="md-footer-nav__direction"> Next </span> Uninstalling Percona Distribution for PostgreSQL </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink"><i
+                class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          
+        </a>
+        
+      </nav>
+    </div>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-footer-meta__inner md-grid">
+        <div class="md-footer-copyright">
+          <div class="md-footer-copyright__highlight">
+              &#169; Copyright Percona LLC and/or its affiliates 2009-2021.
+              
+          </div>
+            Created using
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+             and
+            <a href="https://github.com/bashtage/sphinx-material/">Material for
+              Sphinx</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="_static/javascripts/application.js"></script>
+  <script>app.initialize({version: "1.0.4", url: {base: ".."}})</script>
+  </body>
+</html>
